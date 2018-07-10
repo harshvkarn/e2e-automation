@@ -1,0 +1,5 @@
+---
+- hosts: localhost
+  tasks:
+       - name: Calling logtorail.py
+         shell: python3 logtorail.py {{build_number}}

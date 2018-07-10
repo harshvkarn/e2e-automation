@@ -1,0 +1,11 @@
+---
+- hosts: localhost
+  vars:
+    build_number: "{{ BUILD_NUMBER }}"
+  tasks:
+    - name: Create a csv file for store result
+      lineinfile:
+        create: yes
+        path: "{{ playbook_dir }}/{{ build_number }}.csv"
+        line: 'test_name,suite_id,case_id,status,logs_link'
+        mode: 0755

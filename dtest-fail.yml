@@ -1,0 +1,8 @@
+---
+- hosts: localhost
+  tasks:
+       - name: Generating Log in CSV
+         lineinfile:
+           path: '{{ ansible_env.HOME }}/dummy-test/{{build_number}}.csv'
+           line: 'dummy-name,801,166301,Test Failed,N/A'
+           insertafter: EOF
