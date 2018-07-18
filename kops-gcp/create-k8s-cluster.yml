@@ -1,0 +1,18 @@
+---
+- hosts: localhost
+  tasks:
+       - name: Generating Random Cluster Name
+         shell: python3 random-name.py
+         register: cluster_name
+
+       - name: Creating Bucket
+         shell: gsutil mb gs://{{cluster_name.stdout}}/
+
+       - name: Creating the Cluster & InstanceGroup objects in our state store
+         shell: export KOPS_FEATURE_FLAGS=AlphaAllowGCE && kops create cluster {{cluster_name.stdout}}.k8s.local --zones us-central1-a --state gs://{{cluster_name.stdout}}/ --project={{PROJECT}} --node-count {{NODES}} --vpc=openebs-e2e
+
+       - name: Creating K8s Cluster
+         shell: export KOPS_FEATURE_FLAGS=AlphaAllowGCE && kops update cluster {{cluster_name.stdout}}.k8s.local --yes --state gs://{{cluster_name.stdout}}/
+
+       - name: Logging Cluster Name inside /temp/run_id/gcp_cluster/
+         shell: mkdir -p ~/temp/123/gcp_cluster && touch ~/temp/123/gcp_cluster/{{cluster_name.stdout}}

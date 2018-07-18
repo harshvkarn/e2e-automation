@@ -1,0 +1,7 @@
+---
+- hosts: localhost
+  tasks:
+       - name: Generating Random Name
+         shell: python3 random-name.py
+         register: name
+       - debug: var=name.stdout_lines
