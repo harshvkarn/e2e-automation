@@ -1,0 +1,5 @@
+---
+- hosts: localhost
+  tasks:
+       - name: Deleting VPC `openebs-e2e`
+         shell: gcloud compute --project=openebs-ci networks delete openebs-e2e

@@ -1,0 +1,5 @@
+---
+- hosts: localhost
+  tasks:
+       - name: Generating VPC `openebs-e2e`
+         shell: gcloud compute --project=openebs-ci networks create openebs-e2e --subnet-mode=auto

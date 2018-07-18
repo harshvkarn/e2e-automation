@@ -1,0 +1,8 @@
+---
+- hosts: localhost
+  tasks:
+       - name: Deleting Cluster
+         shell: kops delete cluster --yes --name {{NAME}}.k8s.local --state gs://{{NAME}}/
+       
+       - name: Deleting Bucket
+         shell: gsutil rm -r gs://{{NAME}}/ 
